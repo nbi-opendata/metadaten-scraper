@@ -72,13 +72,13 @@ if __name__ == '__main__':
         json_file.write((json.dumps(all_metadata, indent=2, sort_keys=True, ensure_ascii=False)))
 
     # write csv
-    with io.open('daten-berlin_metadata.csv', 'w', encoding='utf8') as csv_file:
-        for l in sorted(all_labels): csv_file.write(l + ';')
-        csv_file.write('\n')
+    with open('daten-berlin_metadata.csv', 'wb') as csv_file:
+        for l in sorted(all_labels):
+            csv_file.write((l+';').encode('utf8'))
+        csv_file.write('\n'.encode('utf8'))
         for m in all_metadata:
             for l in sorted(all_labels):
                 if l in m:
-                    csv_file.write(str(m[l]) + ';')
-                else:
-                    csv_file.write(';')
-            csv_file.write('\n')
+                    csv_file.write(str(m[l]).encode('utf8'))
+                csv_file.write(';'.encode('utf8'))
+            csv_file.write('\n'.encode('utf8'))

@@ -27,7 +27,9 @@ def get_metadata(url):
             label = field.select('.field-label')[0].text[:-2]
             item_list = list()
             item = field.select('.field-item')
-            if len(item) == 0:
+            if label == 'Website':
+                metadata[label] = item[0].select('a')[0]['href']
+            elif len(item) == 0:
                 items = elem.select('.tag_list a')
                 for i in items:
                     item_list.append(i.text.strip())
@@ -47,6 +49,7 @@ if __name__ == '__main__':
         m = get_metadata(base_url.format(d))
         m['_type'] = 'dataset'
         all_metadata.append(m)
+        print( m )
 
     for d in get_datasets(documents_url):
         m = get_metadata(base_url.format(d))
@@ -56,4 +59,4 @@ if __name__ == '__main__':
     with io.open('daten-berlin_metadata.json', 'w', encoding='utf8') as json_file:
         json_file.write(unicode(json.dumps(all_metadata, indent=2, sort_keys=True, ensure_ascii=False)))
 
-    print( json.dumps(all_metadata, indent=2, sort_keys=True) )
+    print(json.dumps(all_metadata, indent=2, sort_keys=True))

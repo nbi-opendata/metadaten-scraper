@@ -41,7 +41,7 @@ def get_metadata(url):
                 metadata[label] = item[0].text.strip()
 
     tags = set()
-    for elem in soup.select('.post_tags.tag_list a'):
+    for elem in soup.select('.tag_list a'):
         tags.add(elem.text.strip())
     metadata['tags'] = list(tags)
 
